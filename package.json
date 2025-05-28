@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "Backend API pour JCF Lux Talent",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "seed": "node seed.js"
+      "scripts": {
+  "start": "node seed.js && node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
