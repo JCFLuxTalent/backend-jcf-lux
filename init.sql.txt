@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS remplacants (
+  id SERIAL PRIMARY KEY,
+  prenom VARCHAR(50),
+  nom VARCHAR(50)
+);
+
+INSERT INTO remplacants (prenom, nom) VALUES
+  ('Léa', 'Dupont'),
+  ('Hugo', 'Martin');
