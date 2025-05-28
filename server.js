@@ -24,3 +24,7 @@ app.get('/api/disponibilites', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur le port ${PORT}`);
 });
+
+app.get('/', (req, res) => {
+  res.send('API JCF Lux Talent en ligne');
+});
