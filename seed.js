@@ -1,20 +1,31 @@
-const fs = require('fs');
-const { Pool } = require('pg');
-require('dotenv').config();
+const db = require('./db');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-});
+const seed = async () => {
+  try {
+    // Création de la table si elle n'existe pas
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS remplacants (
+        id SERIAL PRIMARY KEY,
+        prenom VARCHAR(100),
+        nom VARCHAR(100)
+      )
+    `);
 
-const sql = fs.readFileSync('./init.sql', 'utf-8');
+    // Insertion de données
+    await db.query(`
+      INSERT INTO remplacants (prenom, nom)
+      VALUES
+        ('Léa', 'Dupont'),
+        ('Hugo', 'Martin')
+      ON CONFLICT DO NOTHING
+    `);
 
-pool.query(sql)
-  .then(() => {
-    console.log('✅ Données insérées avec succès');
-    pool.end();
-  })
-  .catch(err => {
-    console.error('❌ Erreur lors de l\'insertion :', err);
-    pool.end();
-  });
+    console.log('✅ Données insérées avec succès !');
+    process.exit();
+  } catch (err) {
+    console.error('❌ Erreur lors de l\'insertion des données :', err);
+    process.exit(1);
+  }
+};
+
+seed();
