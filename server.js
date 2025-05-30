@@ -11,9 +11,9 @@ app.get('/', (req, res) => {
   res.send('API JCF Lux Talent en ligne');
 });
 
-app.get('/api/remplacants', async (req, res) => {
+app.get('/api/Remplacants', async (req, res) => {
   try {
-    const result = await db.query('SELECT * FROM remplacants');
+    const result = await db.query('SELECT * FROM Remplacants');
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: 'Erreur serveur' });
