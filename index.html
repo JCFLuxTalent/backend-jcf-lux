@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Réservation JCF Lux Talent</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Formulaire de Réservation</h1>
+    <form action="/api/reservation" method="POST">
+      <fieldset>
+        <legend>Contact</legend>
+        <label>Nom :</label>
+        <input type="text" name="nom_contact" required />
+        <label>Prénom :</label>
+        <input type="text" name="prenom_contact" required />
+        <label>Téléphone :</label>
+        <input type="tel" name="telephone_contact" required />
+      </fieldset>
+
+      <fieldset>
+        <legend>Informations de l'enseigne</legend>
+        <label>Enseigne :</label>
+        <input type="text" name="enseigne" required />
+        <label>Adresse du lieu de remplacement :</label>
+        <input type="text" name="adresse_remplacement" required />
+        <label>Nom de la société à facturer :</label>
+        <input type="text" name="societe_facturation" required />
+        <label>Adresse de facturation :</label>
+        <input type="text" name="adresse_facturation" required />
+        <label>Numéro de TVA intracommunautaire :</label>
+        <input type="text" name="tva" required />
+        <label>SIRET :</label>
+        <input type="text" name="siret" required />
+      </fieldset>
+
+      <button type="submit">Réserver</button>
+    </form>
+  </div>
+</body>
+</html>
