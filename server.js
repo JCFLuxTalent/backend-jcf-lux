@@ -1,23 +1,29 @@
+
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
 const path = require('path');
+const db = require('./db');
+const routes = require('./routes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(routes);
 
-app.post('/api/reservations', (req, res) => {
-    console.log('Nouvelle réservation reçue :', req.body);
-    res.send('Réservation bien reçue, merci !');
-});
+// Lancer init.sql automatiquement
+(async () => {
+  try {
+    const initSql = fs.readFileSync(path.join(__dirname, 'init.sql')).toString();
+    await db.query(initSql);
+    console.log('✅ Tables créées ou vérifiées.');
+  } catch (err) {
+    console.error('❌ Erreur création tables :', err);
+  }
 
-app.get('/', (req, res) => {
-    res.send('API JCF Lux Talent en ligne');
-});
-
-app.listen(PORT, () => {
+  app.listen(PORT, () => {
     console.log(`Serveur lancé sur le port ${PORT}`);
-});
+  });
+})();

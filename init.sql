@@ -1,40 +1,32 @@
--- Crée la table remplaçants
+
+-- Création de la table des remplaçants (si non existante)
 CREATE TABLE IF NOT EXISTS remplacants (
-  id SERIAL PRIMARY KEY,
-  prenom VARCHAR(100),
-  nom VARCHAR(100),
-  qualification VARCHAR(100)
+    id SERIAL PRIMARY KEY,
+    prenom VARCHAR(100),
+    nom VARCHAR(100),
+    qualification VARCHAR(100)
 );
 
--- Crée la table disponibilités
+-- Création de la table des disponibilités (si non existante)
 CREATE TABLE IF NOT EXISTS disponibilites (
-  id SERIAL PRIMARY KEY,
-  idremplacant INTEGER NOT NULL,
-  date DATE NOT NULL,
-  FOREIGN KEY (idremplacant) REFERENCES remplacants(id) ON DELETE CASCADE
+    id SERIAL PRIMARY KEY,
+    idremplacant INT REFERENCES remplacants(id),
+    date DATE NOT NULL
 );
 
--- Crée la table clients
-CREATE TABLE IF NOT EXISTS clients (
-  id SERIAL PRIMARY KEY,
-  enseigne VARCHAR(100),
-  adresse_remplacement TEXT,
-  societe_facturation VARCHAR(100),
-  adresse_facturation TEXT,
-  tva_intracom VARCHAR(50),
-  siret VARCHAR(20)
-);
-
--- Crée la table tarifs
-CREATE TABLE IF NOT EXISTS tarifs (
-  id SERIAL PRIMARY KEY,
-  idremplacant INTEGER NOT NULL,
-  jour DECIMAL(10, 2),
-  semaine DECIMAL(10, 2),
-  quinzaine DECIMAL(10, 2),
-  mois DECIMAL(10, 2),
-  frais_hebergement DECIMAL(10, 2),
-  frais_deplacement DECIMAL(10, 2),
-  frais_repas DECIMAL(10, 2),
-  FOREIGN KEY (idremplacant) REFERENCES remplacants(id) ON DELETE CASCADE
+-- Création de la table des réservations
+CREATE TABLE IF NOT EXISTS reservations (
+    id SERIAL PRIMARY KEY,
+    nom_client VARCHAR(100),
+    prenom_client VARCHAR(100),
+    telephone_client VARCHAR(20),
+    enseigne VARCHAR(100),
+    adresse_remplacement TEXT,
+    societe_a_facturer VARCHAR(100),
+    adresse_facturation TEXT,
+    numero_tva VARCHAR(50),
+    siret VARCHAR(20),
+    idremplacant INT REFERENCES remplacants(id),
+    date_debut DATE NOT NULL,
+    date_fin DATE NOT NULL
 );
