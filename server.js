@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/Remplacants', async (req, res) => {
   try {
-    const result = await db.query('SELECT * FROM Remplacants');
+    const result = await db.query('SELECT * FROM remplacants');
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: 'Erreur serveur' });
