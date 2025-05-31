@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulaire de Réservation - JCF Lux Talent</title>
+  <link rel="stylesheet" href="form.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h1>Réservation de Remplaçant</h1>
+    <form>
+      <fieldset>
+        <legend>Informations Client</legend>
+        <label>Nom et prénom du contact</label>
+        <input type="text" placeholder="Nom Prénom" required />
+
+        <label>Numéro de téléphone</label>
+        <input type="tel" placeholder="06 12 34 56 78" required />
+
+        <label>Enseigne</label>
+        <select>
+          <option>Krys</option>
+          <option>Collectif des Lunetiers</option>
+          <option>Lynx</option>
+          <option>You Do</option>
+          <option>CDO</option>
+          <option>Autre (à préciser)</option>
+        </select>
+
+        <label>Adresse du lieu de remplacement</label>
+        <input type="text" placeholder="Adresse complète" required />
+
+        <label>Nom de la société à facturer</label>
+        <input type="text" required />
+
+        <label>Adresse de facturation</label>
+        <input type="text" required />
+
+        <label>Numéro de TVA intracommunautaire</label>
+        <input type="text" placeholder="FRXX123456789" />
+
+        <label>SIRET</label>
+        <input type="text" placeholder="123 456 789 00010" />
+      </fieldset>
+
+      <fieldset>
+        <legend>Remplaçant Souhaité</legend>
+        <label>Choix du remplaçant</label>
+        <select>
+          <option>Jean Dupont (BTS)</option>
+          <option>Marie Laurent (Responsable)</option>
+          <option>Autre</option>
+        </select>
+
+        <label>Date souhaitée</label>
+        <input type="date" required />
+      </fieldset>
+
+      <fieldset>
+        <legend>Commentaires / Besoins particuliers</legend>
+        <textarea placeholder="Précisez vos besoins..." rows="4"></textarea>
+      </fieldset>
+
+      <button type="submit">Envoyer la demande</button>
+    </form>
+  </div>
+</body>
+</html>
+
+Ajout du dossier public et du formulaire client
