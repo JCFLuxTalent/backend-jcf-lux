@@ -14,23 +14,22 @@ app.get('/', (req, res) => {
   res.send('API JCF Lux Talent en ligne');
 });
 
-// Route API dynamique
 app.get('/api/remplacants', async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM remplacants');
     res.json(result.rows);
   } catch (err) {
-    console.error('❌ Erreur SELECT remplacants :', err); // AJOUTE CETTE LIGNE POUR DEBUG
+    console.error('❌ Erreur SELECT remplacants :', err);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
-// Lancement du serveur après suppression éventuelle
+// Suppression de la table Remplaçants si elle existe, puis démarrage du serveur
 (async () => {
   try {
     const initSql = fs.readFileSync(path.join(__dirname, 'init.sql')).toString();
     await db.query(initSql);
-    console.log('✅ Table Remplaçants supprimée (si existait)');
+    console.log('✅ Table Remplaçants supprimée (si elle existait)');
   } catch (err) {
     console.error('❌ Erreur suppression Remplaçants :', err);
   }
