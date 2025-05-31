@@ -10,21 +10,23 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Route de test
 app.get('/', (req, res) => {
   res.send('API JCF Lux Talent en ligne');
 });
 
+// Endpoint dynamique → liste des remplaçants
 app.get('/api/remplacants', async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM remplacants');
     res.json(result.rows);
   } catch (err) {
-    console.error('❌ Erreur SELECT remplacants :', err);
-    res.status(500).json({ error: 'Erreur serveur' });
+    console.error('❌ Erreur SELECT remplacants :', err); // log dans Railway
+    res.status(500).json({ error: err.message }); // afficher le vrai message côté client
   }
 });
 
-// Suppression de la table Remplaçants si elle existe, puis démarrage du serveur
+// Supprimer la mauvaise table "Remplaçants" (avec accent) si elle existe
 (async () => {
   try {
     const initSql = fs.readFileSync(path.join(__dirname, 'init.sql')).toString();
@@ -34,6 +36,7 @@ app.get('/api/remplacants', async (req, res) => {
     console.error('❌ Erreur suppression Remplaçants :', err);
   }
 
+  // Démarrer le serveur ensuite
   app.listen(PORT, () => {
     console.log(`Serveur lancé sur le port ${PORT}`);
   });
