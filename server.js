@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
   res.send('API JCF Lux Talent en ligne');
 });
 
-app.get('/api/Remplacants', async (req, res) => {
+app.get('/api/remplacants', async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM remplacants');
     res.json(result.rows);
