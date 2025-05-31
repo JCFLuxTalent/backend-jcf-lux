@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Réservation Remplaçant - JCF Lux Talent</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Formulaire de Réservation</h1>
+    <form id="reservationForm">
+      <label>Nom du client</label>
+      <input type="text" name="nomClient" required>
+
+      <label>Prénom du client</label>
+      <input type="text" name="prenomClient" required>
+
+      <label>Téléphone</label>
+      <input type="tel" name="telephone" required>
+
+      <label>Enseigne</label>
+      <input type="text" name="enseigne" required>
+
+      <label>Adresse du lieu de remplacement</label>
+      <textarea name="adresseRemplacement" required></textarea>
+
+      <label>Nom de la société à facturer</label>
+      <input type="text" name="societeFacturation" required>
+
+      <label>Adresse de facturation</label>
+      <textarea name="adresseFacturation" required></textarea>
+
+      <label>Numéro de TVA intracommunautaire</label>
+      <input type="text" name="tva" required>
+
+      <label>SIRET</label>
+      <input type="text" name="siret" required>
+
+      <button type="submit">Envoyer</button>
+    </form>
+  </div>
+</body>
+</html>
