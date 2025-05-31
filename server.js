@@ -10,33 +10,35 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Endpoint de test
+// Drop la table disponibilites si elle existe
+(async () => {
+  try {
+    const initSql = fs.readFileSync(path.join(__dirname, 'init.sql')).toString();
+    await db.query(initSql);
+    console.log('✅ Table disponibilites initialisée');
+  } catch (err) {
+    console.error('❌ Erreur init.sql :', err);
+  }
+})();
+
 app.get('/', (req, res) => {
   res.send('API JCF Lux Talent en ligne');
 });
 
-// Endpoint Remplacants
 app.get('/api/remplacants', async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM remplacants');
     res.json(result.rows);
   } catch (err) {
-    console.error('❌ Erreur SELECT remplacants :', err);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
-// Endpoint Disponibilités
 app.get('/api/disponibilites', async (req, res) => {
   try {
-    const result = await db.query(`
-      SELECT id_remplacant, ARRAY_AGG(date_disponibilite) AS dispo
-      FROM disponibilites
-      GROUP BY id_remplacant
-    `);
+    const result = await db.query('SELECT * FROM disponibilites');
     res.json(result.rows);
   } catch (err) {
-    console.error('❌ Erreur SELECT disponibilites :', err);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
