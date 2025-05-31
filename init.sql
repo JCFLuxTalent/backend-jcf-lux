@@ -1,7 +1,12 @@
-DROP TABLE IF EXISTS "Remplaçants";
+
+CREATE TABLE IF NOT EXISTS remplacants (
+  id SERIAL PRIMARY KEY,
+  prenom VARCHAR(100),
+  nom VARCHAR(100)
+);
 
 CREATE TABLE IF NOT EXISTS disponibilites (
   id SERIAL PRIMARY KEY,
-  idRemplacant INTEGER,
+  idremplacant INTEGER REFERENCES remplacants(id),
   date DATE
 );

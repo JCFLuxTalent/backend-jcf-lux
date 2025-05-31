@@ -1,37 +1,20 @@
+
 const db = require('./db');
 
 const seed = async () => {
   try {
-    await db.query(`
-      CREATE TABLE IF NOT EXISTS remplacants (
-        id SERIAL PRIMARY KEY,
-        prenom VARCHAR(100),
-        nom VARCHAR(100)
-      );
-    `);
-
-    await db.query(`
+    await db.query(\`
       INSERT INTO remplacants (prenom, nom)
-      VALUES
+      VALUES 
         ('Léa', 'Dupont'),
         ('Hugo', 'Martin')
-      ON CONFLICT DO NOTHING;
-    `);
+      ON CONFLICT DO NOTHING
+    \`);
 
-    await db.query(`
-      INSERT INTO disponibilites (idRemplacant, date)
-      VALUES
-        (1, '2025-06-01'),
-        (1, '2025-06-07'),
-        (2, '2025-06-10'),
-        (2, '2025-06-17')
-      ON CONFLICT DO NOTHING;
-    `);
-
-    console.log('✅ Données insérées avec succès !');
+    console.log('✅ Données insérées avec succès');
     process.exit();
   } catch (err) {
-    console.error('❌ Erreur insertion :', err);
+    console.error('❌ Erreur insertion données :', err);
     process.exit(1);
   }
 };
