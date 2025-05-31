@@ -1,0 +1,1 @@
+// Les routes ont été intégrées dans server.js pour simplification.
