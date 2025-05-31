@@ -10,17 +10,6 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Drop la table disponibilites si elle existe
-(async () => {
-  try {
-    const initSql = fs.readFileSync(path.join(__dirname, 'init.sql')).toString();
-    await db.query(initSql);
-    console.log('✅ Table disponibilites initialisée');
-  } catch (err) {
-    console.error('❌ Erreur init.sql :', err);
-  }
-})();
-
 app.get('/', (req, res) => {
   res.send('API JCF Lux Talent en ligne');
 });
@@ -30,19 +19,36 @@ app.get('/api/remplacants', async (req, res) => {
     const result = await db.query('SELECT * FROM remplacants');
     res.json(result.rows);
   } catch (err) {
+    console.error('❌ Erreur SELECT remplacants :', err);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
 app.get('/api/disponibilites', async (req, res) => {
   try {
-    const result = await db.query('SELECT * FROM disponibilites');
+    const result = await db.query(`
+      SELECT id_remplacant, array_agg(date ORDER BY date) as dispo
+      FROM disponibilites
+      GROUP BY id_remplacant
+    `);
     res.json(result.rows);
   } catch (err) {
+    console.error('❌ Erreur SELECT disponibilites :', err);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Serveur lancé sur le port ${PORT}`);
-});
+// Créer les tables au démarrage
+(async () => {
+  try {
+    const initSql = fs.readFileSync(path.join(__dirname, 'init.sql')).toString();
+    await db.query(initSql);
+    console.log('✅ Tables créées avec succès (init.sql)');
+  } catch (err) {
+    console.error('❌ Erreur initialisation base :', err);
+  }
+
+  app.listen(PORT, () => {
+    console.log(`Serveur lancé sur le port ${PORT}`);
+  });
+})();
