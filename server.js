@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./db');
 const path = require('path');
-require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,12 +10,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-// Page formulaire
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'formulaire.html'));
-});
+// Ajout : import et activation des routes personnalisées
+const routes = require('./routes');
+app.use(routes);
 
-// API Remplaçants
 app.get('/api/remplacants', async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM remplacants');
@@ -26,7 +23,6 @@ app.get('/api/remplacants', async (req, res) => {
   }
 });
 
-// API Disponibilités
 app.get('/api/disponibilites', async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM disponibilites');
@@ -36,7 +32,10 @@ app.get('/api/disponibilites', async (req, res) => {
   }
 });
 
-// (à compléter : POST pour réservations)
+// Affiche le formulaire (facultatif si tu utilises "public" statique)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'formulaire.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur le port ${PORT}`);
