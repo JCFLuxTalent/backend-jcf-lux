@@ -1,10 +1,5 @@
-INSERT INTO remplacants (prenom, nom, qualification)
-VALUES 
-  ('Léa', 'Dupont', 'BTS'),
-  ('Hugo', 'Martin', 'Responsable');
+INSERT INTO remplacants (nom, prenom, qualification) VALUES
+  ('Dupont', 'Léa', 'BTS'),
+  ('Martin', 'Hugo', 'Licence')
+ON CONFLICT DO NOTHING;
 
-INSERT INTO disponibilites (id_remplacant, date)
-VALUES 
-  (1, '2025-06-01'),
-  (1, '2025-06-02'),
-  (2, '2025-06-03');

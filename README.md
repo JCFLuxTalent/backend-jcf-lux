@@ -1,26 +1,7 @@
-# Backend - JCF Lux Talent
+# JCF Lux Talent – Backend & Formulaire Réservation
 
-Ce backend ExpressJS sert l’API de réservation JCF Lux Talent.
+## Lancement local
 
-## Endpoints
-
-- `/` : test de fonctionnement
-- `/api/remplacants` : liste dynamique depuis PostgreSQL
-
-## Commandes utiles
-
-- `npm install`
-- `npm run seed` → crée et insère des données dans la table `remplacants`
-- `npm start` → lance le serveur
-
-## Environnement (.env)
-
-Crée un fichier `.env` avec :
-
-```
-DATABASE_URL=postgresql://user:password@host:port/dbname
-```
-
-## Déploiement
-
-Compatible avec Railway + GitHub (ExpressJS template).
+1. Clone le repo, va dans le dossier.
+2. Renseigne le `.env` avec ta `DATABASE_URL` Railway.
+3. Fais les commandes suivantes :
