@@ -2,22 +2,17 @@ const express = require('express');
 const router = express.Router();
 const db = require('./db');
 
-// ... (autres routes GET/POST déjà existantes)
-
-router.post('/api/reservations', async (req, res) => {
+// Liste des remplaçants (pour le formulaire)
+router.get('/remplacants', async (req, res) => {
   try {
-    const { nom_client, prenom_client, telephone_client, enseigne, adresse_remplacement, societe_a_facturer, adresse_facturation, numero_tva, siret, date_debut, date_fin } = req.body;
-    await db.query(
-      `INSERT INTO reservations 
-        (nom_client, prenom_client, telephone_client, enseigne, adresse_remplacement, societe_a_facturer, adresse_facturation, numero_tva, siret, date_debut, date_fin) 
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
-      [nom_client, prenom_client, telephone_client, enseigne, adresse_remplacement, societe_a_facturer, adresse_facturation, numero_tva, siret, date_debut, date_fin]
-    );
-    res.json({ success: true });
+    const result = await db.query('SELECT id, prenom, nom, qualification FROM remplacants');
+    res.json(result.rows);
   } catch (err) {
-    console.error('Erreur POST /api/reservations:', err);
-    res.status(500).json({ error: 'Erreur serveur (insertion réservation)' });
+    console.error('Erreur SELECT remplaçants :', err);
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+
+// D'autres endpoints peuvent être ajoutés ici plus tard
 
 module.exports = router;
