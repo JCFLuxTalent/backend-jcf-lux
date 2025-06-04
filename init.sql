@@ -1,12 +1,14 @@
-CREATE TABLE IF NOT EXISTS remplacants (
+CREATE TABLE IF NOT EXISTS reservations (
   id SERIAL PRIMARY KEY,
-  nom VARCHAR(100) NOT NULL,
-  prenom VARCHAR(100) NOT NULL,
-  qualification VARCHAR(50)
-);
-
-CREATE TABLE IF NOT EXISTS disponibilites (
-  id SERIAL PRIMARY KEY,
-  idremplacant INTEGER REFERENCES remplacants(id),
-  date DATE NOT NULL
+  nom_client VARCHAR(100),
+  prenom_client VARCHAR(100),
+  telephone_client VARCHAR(30),
+  enseigne VARCHAR(100),
+  adresse_remplacement VARCHAR(200),
+  societe_a_facturer VARCHAR(100),
+  adresse_facturation VARCHAR(200),
+  numero_tva VARCHAR(30),
+  siret VARCHAR(30),
+  date_debut DATE NOT NULL,
+  date_fin DATE NOT NULL
 );
