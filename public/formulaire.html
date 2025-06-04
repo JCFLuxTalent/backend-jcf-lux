@@ -48,5 +48,29 @@
     <button type="submit" class="btn btn-primary">Envoyer</button>
   </form>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('reservationForm').onsubmit = async function(e) {
+  e.preventDefault();
+  const data = {
+    nom_client: document.getElementById('nom').value,
+    prenom_client: document.getElementById('prenom').value,
+    telephone_client: document.getElementById('telephone').value,
+    enseigne: document.getElementById('enseigne').value,
+    adresse_remplacement: document.getElementById('adresse_remplacement').value,
+    societe_a_facturer: document.getElementById('societe').value,
+    adresse_facturation: document.getElementById('adresse_facturation').value,
+    numero_tva: document.getElementById('tva').value,
+    siret: document.getElementById('siret').value
+  };
+  const res = await fetch('/api/reservations', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  });
+  if(res.ok) alert('Réservation enregistrée !');
+  else alert('Erreur lors de la réservation.');
+}
+</script>
+
 </body>
 </html>
